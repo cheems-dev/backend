@@ -32,8 +32,14 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     
     # Configure CORS to allow requests from any origin
-    CORS(app, origins="*", allow_headers=["Content-Type", "Authorization"], 
-         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+    CORS(app, origins="*", 
+         allow_headers=["Content-Type", "Authorization", "Accept"], 
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+         supports_credentials=True,
+         automatic_options=True)
+    
+    # Aseguramos que las rutas terminen con slash para evitar redirecciones
+    app.url_map.strict_slashes = False
     
     # Import routes with API namespaces
     from app.routes.products import register_routes as register_product_routes

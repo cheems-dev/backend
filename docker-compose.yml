@@ -28,7 +28,7 @@ services:
       - MYSQL_PASSWORD=burger_password
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 

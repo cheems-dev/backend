@@ -30,7 +30,10 @@ def create_app(config_class=Config):
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    CORS(app)
+    
+    # Configure CORS to allow requests from any origin
+    CORS(app, origins="*", allow_headers=["Content-Type", "Authorization"], 
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
     
     # Import routes with API namespaces
     from app.routes.products import register_routes as register_product_routes
